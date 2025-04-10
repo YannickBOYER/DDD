@@ -19,7 +19,7 @@ A partir d'une musique source et d'un pays cible, proposer une liste de musique 
 ### Ubiquitous Language
 Langage commun identifiant les termes métiers de l'application.
 > `is_explicit` : Présence de contenu explicite d'une musique (langage vulgaire, violent, sexuel ou discriminatoire). \
-> `danceability, energy, loudness, mode...` : Ensemble de termes relatant des données propre à une musique tels que le niveau d'énergie, le tempo, le mode harmonique, la présence de parole...
+> `danceability, energy, loudness, mode...` : Ensemble de termes relatant des données propre à une musique tels que le niveau d'énergie, le tempo, le mode harmonique, la présence de parole... \
 > `social_media_pct` : Pourcentage de la population d'un pays active sur les réseaux sociaux.
 
 ## API REST
