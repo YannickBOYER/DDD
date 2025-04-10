@@ -1,5 +1,5 @@
-# DDD
+# Domain-Driven Design
 
-## ddd_api_rest
+## API REST
 Pour lancer le projet :
 > python manage.py runserver
