@@ -1,5 +1,5 @@
 """
-WSGI config for ddd_api_rest project.
+WSGI config for ddd_back project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ddd_api_rest.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ddd_back.settings')
 
 application = get_wsgi_application()

@@ -1,5 +1,5 @@
 """
-URL configuration for ddd_api_rest project.
+URL configuration for ddd_back project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .rest.article_rest_controller import ArticleRestController
+from apps.api.rest.authentication_rest_controller import AuthenticationRestController
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('articles/', ArticleRestController.as_view()),
+    path('auth/', AuthenticationRestController.as_view())
 ]

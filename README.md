@@ -25,3 +25,6 @@ Langage commun identifiant les termes métiers de l'application.
 ## API REST
 Pour lancer le projet :
 > python manage.py runserver
+
+> python manage.py migrate
+> python manage.py createsuperuser
