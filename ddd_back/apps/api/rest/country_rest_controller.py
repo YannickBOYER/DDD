@@ -1,12 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from apps.api.models import CountryStats
+from rest_framework import status
+from ..repository.country_repository import CountryRepository
+
 
 class CountryRestController(APIView):
     permission_classes = [IsAuthenticated]
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.countryRepository = CountryRepository()
+
     def get(self, request):
-        # Make a database call to get the list of countries in the api_countrystats table
-        countries = CountryStats.objects.values_list('country', flat=True)
-        return Response({"countries": list(countries)}, status=200)
+        countries = self.countryRepository.get_all_countries()
+        return Response({"countries": countries}, status=status.HTTP_200_OK)
