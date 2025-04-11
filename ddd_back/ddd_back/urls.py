@@ -17,8 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from apps.api.rest.authentication_rest_controller import AuthenticationRestController
+from apps.api.rest.country_rest_controller import CountryRestController
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', AuthenticationRestController.as_view())
+    path('api/auth/login/', obtain_auth_token, name='api_token_auth'),
+    path('api/auth/logout/<str:user_name>/', AuthenticationRestController.as_view(), name='delete'),
+    path('api/country/', CountryRestController.as_view()),
 ]
