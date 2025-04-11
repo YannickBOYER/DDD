@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/login/', obtain_auth_token, name='api_token_auth'),
     path('api/auth/logout/<str:user_name>/', AuthenticationRestController.as_view(), name='delete'),
-    path('api/countries/', CountryRestController.as_view()),
+    path('api/countries/', CountryRestController.as_view({'get': 'get'})),
+    path('api/countries/<str:country>/songs/', CountryRestController.as_view({'get': 'get_songs'}), name='get_songs'),
 ]

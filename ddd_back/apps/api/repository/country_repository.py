@@ -1,4 +1,5 @@
 from apps.api.models import CountryStats
+from apps.api.models import Song
 
 class CountryRepository:
     @staticmethod
@@ -17,3 +18,14 @@ class CountryRepository:
         Retrieve all countries from the database.
         """
         return list(CountryStats.objects.values_list('country', flat=True))
+
+    @staticmethod
+    def get_songs(country) -> list:
+        songs_names = []
+        songs = Song.objects.filter(country_full=country).all()
+        for song in songs:
+            songs_names.append({
+                'name': song.name,
+                'artists': song.artists
+            })
+        return songs_names
