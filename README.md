@@ -24,6 +24,10 @@ Langage commun identifiant les termes métiers de l'application.
 > `social_media_pct` : Pourcentage de la population d'un pays active sur les réseaux sociaux.
 
 ## API REST
+
+### Prérequis
+pip install django-cors-headers
+
 Pour lancer le projet :
 > python manage.py runserver
 
