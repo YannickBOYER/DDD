@@ -1,6 +1,7 @@
 # Domain-Driven Design
 
-## Définitions des besoins
+## Définition des besoins
+
 ### 3 Niveaux d'utilisateurs
 1. Rôle Administrateur \
 Vu globale sur les différents écrans de l'application.
