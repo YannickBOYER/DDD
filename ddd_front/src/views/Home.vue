@@ -23,6 +23,14 @@ onMounted(async () => {
     isPlaylistCreator.value = groups.includes('ddd_playlist_creator');
   }
 });
+
+function handleAnalyst(){
+  router.push('/analys');
+}
+
+function handlePlaylistCreator(){
+  router.push('/playlist-generation');
+}
 </script>
 
 <template>
@@ -30,11 +38,11 @@ onMounted(async () => {
     <div class="home-page">  
         <h1>Home-page</h1>
         <div class="tiles-container">
-            <div v-if="isAdmin || isAnalyst" class="tile">
+            <div v-if="isAdmin || isAnalyst" class="tile" @click="handleAnalyst">
                 <h2>Analyst</h2>
                 <p>Analyste data</p>
             </div>
-            <div v-if="isAdmin || isPlaylistCreator" class="tile">
+            <div v-if="isAdmin || isPlaylistCreator" class="tile" @click="handlePlaylistCreator">
                 <h2>Playlist maker</h2>
                 <p>Créateur de playlist dans un pays cible</p>
             </div>

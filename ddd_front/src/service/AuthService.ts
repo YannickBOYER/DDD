@@ -72,5 +72,3 @@ export async function getUserGroups() {
         console.log('Error during getting groups:', error);
     }
 }
-
-//export default {login, logout, getUserGroups}
