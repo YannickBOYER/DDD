@@ -4,19 +4,32 @@ import Navbar from './Navbar.vue';
 import { useRouter } from 'vue-router';
 import {findCountries} from '../service/CountryService'
 import {findSongsByCountry} from '../service/CountryService'
+import {generatePlaylist} from '../service/SongService'
 
 interface Song {
   name: string;
   artists: string;
 }
 
+const showModal = ref(false);
+
 const router = useRouter();
 const token = localStorage.getItem('token');
 const countries = ref<string[]>([]);
-const songsByCountryCible = ref<{}>([]);
+const songsByCountrySource = ref<{}>([]);
 
-const selectedCountry = ref<string>('');
+const selectedCountrySource = ref<string>('');
+const selectedCountryCible = ref<string>('');
 const selectedSong = ref<Song| null>(null);
+
+const resultSongSource = ref<string>('');
+const resultSongSourceArtists = ref<string>('');
+const resultTempo = ref<string>('');
+const resultMode = ref<string>('');
+const resultDanceability = ref<string>('');
+const resultEnergy = ref<string>('');
+const resultValence = ref<string>('');
+const resultPlaylist = ref<Song[] | null>(null);
 
 onMounted(async () => {
   if (!token) {
@@ -27,47 +40,105 @@ onMounted(async () => {
 });
 
 async function countryChange(){
-    songsByCountryCible.value = await findSongsByCountry(selectedCountry.value);
+    songsByCountrySource.value = await findSongsByCountry(selectedCountrySource.value);
 }
 
 async function validateSelection(){
-    console.log(selectedSong.value?.name)
+  let countrySource = selectedCountrySource.value;
+  let songSource = selectedSong.value?.name;
+  let countryCible = selectedCountryCible.value;
+  let response;
+  if(songSource){
+    response = await generatePlaylist(countrySource, songSource, countryCible)
+    resultSongSource.value = response['song_source'];
+    resultSongSourceArtists.value = response['song_source_artists'];
+    resultTempo.value = response['tempo'];
+    resultMode.value = response['mode'];
+    resultDanceability.value = response['danceability'];
+    resultEnergy.value = response['energy'];
+    resultValence.value = response['valence'];
+    resultPlaylist.value = response['playlist_generated'];
+    console.log(resultPlaylist.value)
+    showModal.value = true;
+  }
 }
 
 </script>
 <template>
-    <div class="playlist-page">
-      <Navbar />
-      <h1>Playlist Creator</h1>
-  
-      <div class="form-group">
-        <label for="country-select">Choisis un pays :</label>
-        <select v-model="selectedCountry" id="country-select" @change="countryChange">
-          <option disabled value="">-- Sélectionner --</option>
-          <option v-for="country in countries" :key="country" :value="country">
-            {{ country }}
-          </option>
-        </select>
-      </div>
-  
-      <div class="form-group">
-        <label for="song-select">Choisis une musique :</label>
-        <select v-model="selectedSong" id="song-select">
-          <option disabled value="">-- Sélectionner --</option>
-          <option v-for="song in songsByCountryCible" :key="song" :value="song">
-            {{ song['name'] }} - {{ song['artists'] }}
-          </option>
-        </select>
-      </div>
-  
-      <button class="validate-button" @click="validateSelection">Valider</button>
+  <div class="playlist-page">
+    <Navbar />
+    <h1>Playlist Creator</h1>
+
+    <div class="form-group">
+      <label for="country-select">Choisis un pays source :</label>
+      <select v-model="selectedCountrySource" id="country-select" @change="countryChange">
+        <option disabled value="">-- Sélectionner --</option>
+        <option v-for="country in countries" :key="country" :value="country">
+          {{ country }}
+        </option>
+      </select>
     </div>
-  </template>
+
+    <div class="form-group">
+      <label for="song-select">Choisis une musique :</label>
+      <select v-model="selectedSong" id="song-select">
+        <option disabled value="">-- Sélectionner --</option>
+        <option v-for="song in songsByCountrySource" :key="song" :value="song">
+          {{ song['name'] }} - {{ song['artists'] }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="country-select">Choisis un pays cible :</label>
+      <select v-model="selectedCountryCible" id="country-select">
+        <option disabled value="">-- Sélectionner --</option>
+        <option v-for="country in countries" :key="country" :value="country">
+          {{ country }}
+        </option>
+      </select>
+    </div>
+
+    <button class="validate-button" @click="validateSelection">Valider</button>
+  </div>
+  <!-- Lightbox -->
+  <div v-if="showModal" class="modal-overlay" @click.self="showModal = false">
+    <div class="modal-content">
+      <h2>Résultat de la génération</h2>
+      <div class="result-block">
+        <h3>🎵 Chanson Source</h3>
+        <p><strong>Nom :</strong> {{ resultSongSource }}</p>
+        <p><strong>Artistes :</strong> {{ resultSongSourceArtists }}</p>
+      </div>
+      <div class="result-block">
+        <h3>🎧 Caractéristiques</h3>
+        <p><strong>Tempo :</strong> {{ resultTempo }}</p>
+        <p><strong>Mode :</strong> {{ resultMode }}</p>
+        <p><strong>Énergie :</strong> {{ resultEnergy }}</p>
+        <p><strong>Positivité :</strong> {{ resultValence }}</p>
+        <p><strong>Dansabilité :</strong> {{ resultDanceability }}</p>
+      </div>
+      <div class="result-block">
+        <h3>📜 Playlist Générée</h3>
+        <div v-if="resultPlaylist && resultPlaylist.length">
+          <ul>
+            <li v-for="(song, index) in resultPlaylist" :key="index">
+              {{ song.name }} - {{ song.artists }}
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <p>Aucun résultat trouvé pour cette combinaison.</p>
+        </div>
+      </div>
+      <button @click="showModal = false" class="close-btn">Fermer</button>
+    </div>
+  </div>
+</template>
   
 <style scoped>
 .playlist-page {
-  max-width: 600px;
-  margin: 80px auto;
+  width: 600px;
   padding: 20px;
   background-color: #fafafa;
   border-radius: 12px;
@@ -122,5 +193,56 @@ select {
 
 .validate-button:hover {
   background-color: #45a049;
+}
+
+/* LightBox */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: left;
+  color: #555;
+  overflow-y: scroll;
+  height: 80%;
+}
+
+.result-block {
+  margin-bottom: 20px;
+}
+
+.result-block h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.close-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #d9534f;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close-btn:hover {
+  background-color: #c9302c;
 }
 </style>

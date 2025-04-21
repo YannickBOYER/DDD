@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from apps.api.rest.authentication_rest_controller import AuthenticationRestController
 from apps.api.rest.country_rest_controller import CountryRestController
+from apps.api.rest.song_rest_controller import SongRestController
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
@@ -29,4 +30,6 @@ urlpatterns = [
     
     path('api/countries/', CountryRestController.as_view({'get': 'get'})),
     path('api/countries/<str:country>/songs/', CountryRestController.as_view({'get': 'get_songs'}), name='get_songs'),
+    
+    path('api/songs/generate-playlist', SongRestController.as_view({'post': 'generate_playlist'}), name='generate_playlist'),
 ]
