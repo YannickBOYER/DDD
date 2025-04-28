@@ -24,6 +24,27 @@ export async function login(username: String, password: String) {
     }
 }
 
+export async function get_groups() {
+    try {
+        const response = await fetch('http://localhost:8000/api/auth/groups/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `token ${localStorage.getItem('token')}`
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error('Échec de la requête API')
+        }
+
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error('Erreur lors de l\'appel API:', error)
+    }
+}
+
 export async function logout() {
     let token = localStorage.getItem('token');
     if (!token) {

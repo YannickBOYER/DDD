@@ -13,7 +13,7 @@ Comprendre les corélation, visualiser les graphiques
 A partir d'une musique source et d'un pays cible, proposer une liste de musique similaire au créateur de playlist afin de s'implanter dans un pays en fonction des données musicale et démographique.
 
 ### Bounded context
-- Analyse Musicale & Recommandation 
+- Analyse Musicale & Recommandation
 - Démographie et sociale
 - Interface et visualisation
 
