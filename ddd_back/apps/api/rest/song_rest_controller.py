@@ -3,7 +3,6 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 import json
-from ..permissions import IsInGroup
 from rest_framework.authentication import TokenAuthentication
 from ..service.song_service import SongService
 
