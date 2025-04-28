@@ -3,7 +3,7 @@ const defaultUrl = "http://localhost:8000/api/countries";
 export async function findCountries() {
     let token = localStorage.getItem('token');
     try {
-        const response = await fetch(`${defaultUrl}/`, {
+        const response = await fetch(`${defaultUrl}/names`, {
             method: 'GET',
             headers: {
                 'Authorization': `Token ${token}`,

@@ -13,7 +13,7 @@ class CountryRepository:
             return None
 
     @staticmethod
-    def get_all_countries() -> list:
+    def get_all_countries_names() -> list:
         """
         Retrieve all countries from the database.
         """

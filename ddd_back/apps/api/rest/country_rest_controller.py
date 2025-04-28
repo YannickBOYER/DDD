@@ -13,14 +13,14 @@ class CountryRestController(ViewSet):
         super().__init__(**kwargs)
         self.countryRepository = CountryRepository()
 
-    def get(self, request):
+    def get_names(self, request):
         authorized_groups = ['ddd_admin', 'ddd_playlist_creator', 'ddd_analyst']
         groups = request.user.groups.values_list('name', flat=True)
 
         if not any(group in authorized_groups for group in groups):
             return Response({"detail": "Vous n'avez pas le rôle requis pour accéder à cet endpoint."}, status=status.HTTP_403_FORBIDDEN)
 
-        countries = self.countryRepository.get_all_countries()
+        countries = self.countryRepository.get_all_countries_names()
         return Response({"countries": countries}, status=status.HTTP_200_OK)
     
     def get_songs(self, request, country):
