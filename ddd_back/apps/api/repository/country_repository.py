@@ -18,6 +18,39 @@ class CountryRepository:
         Retrieve all countries from the database.
         """
         return list(CountryStats.objects.values_list('country', flat=True))
+    
+    @staticmethod
+    def get_all_countries() -> list:
+        """
+        Retrieve all countries from the database.
+        """
+        countries = CountryStats.objects.all()
+        response = []
+        for country in countries:
+            response.append({
+                'name': country.country,
+                'popularity': country.popularity,
+                'is_explicit': country.is_explicit,
+                'danceability': country.danceability,
+                'energy': country.energy,
+                'loudness': country.loudness,
+                'mode': country.mode,
+                'speechiness': country.speechiness,
+                'acousticness': country.acousticness,
+                'instrumentalness': country.instrumentalness,
+                'liveness': country.liveness,
+                'valence': country.valence,
+                'tempo': country.tempo,
+                'social_media_users': country.social_media_users,
+                'social_media_pct': country.social_media_pct,
+                'total_population': country.total_population,
+                'age_65_plus': country.age_65_plus,
+                'age_25_64': country.age_25_64,
+                'age_15_24': country.age_15_24,
+                'age_5_14': country.age_5_14,
+                'age_0_4': country.age_0_4,
+            })
+        return response
 
     @staticmethod
     def get_songs(country) -> list:

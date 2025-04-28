@@ -36,7 +36,6 @@ onMounted(async () => {
   const groups = await getUserGroups() as string[];
   let isAdmin = groups.includes('ddd_admin');
   let isPlaylistCreator = groups.includes('ddd_playlist_creator');
-  console.log(groups);
   if (!token) {
     router.push('/login');
   }
