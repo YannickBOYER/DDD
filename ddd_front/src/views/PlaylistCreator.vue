@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 import {findCountries} from '../service/CountryService'
 import {findSongsByCountry} from '../service/CountryService'
 import {generatePlaylist} from '../service/SongService'
+import { getUserGroups } from '../service/AuthService';
 
 interface Song {
   name: string;
@@ -32,10 +33,18 @@ const resultValence = ref<string>('');
 const resultPlaylist = ref<Song[] | null>(null);
 
 onMounted(async () => {
+  const groups = await getUserGroups() as string[];
+  let isAdmin = groups.includes('ddd_admin');
+  let isPlaylistCreator = groups.includes('ddd_playlist_creator');
+  console.log(groups);
   if (!token) {
     router.push('/login');
-  }else{
+  }
+  else if(token && isAdmin || isPlaylistCreator){
     countries.value = await findCountries();
+  }
+  else{
+    router.push('/');
   }
 });
 
