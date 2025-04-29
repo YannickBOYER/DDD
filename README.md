@@ -2,26 +2,25 @@
 
 ## Présentation globale
 
-| Catégorie   | Type de donnée |
-|-------------|----------------|
-| **Musique** | Propriétés des musiques (Dansabilité, tempo...) |
+| Catégorie                   | Type de donnée                                               |
+| --------------------------- | ------------------------------------------------------------ |
+| **Musique**                 | Propriétés des musiques (Dansabilité, tempo...)              |
 | **Utilisation des réseaux** | Part de la population utilisant les réseaux sociaux par pays |
-| **Démographie** | Répartition d'âge par pays |
+| **Démographie**             | Répartition d'âge par pays                                   |
 
-## 3 Niveaux d'utilisateurs
-1. Rôle Administrateur \
-Vue globale sur les différents écrans de l'application.
+## Bounded contexts
+- Création de playlists
+- Analyse des données par pays
+- Gestion des utilisateurs
 
-2. Rôle Analyste \
-L'analyste aura accès à des données musicales pour chaque pays.
+## Rôles
 
-3. Créateur de playlist \
-A partir d'un pays et d'une musique sources, ainsi que d'un pays cible, l'utilisateur se verra proposer une liste de musiques similaires  afin de trouver une musique adaptée à un pays en fonction des données musicales et démographiques.
+| Permission \ Rôle              | playlist_creator | analyst | admin |
+| :----------------------------- | :--------------: | :-----: | :---: |
+| **Génération de playlists**    |        ✅         |    ❌    |   ✅   |
+| **Accès aux données par pays** |        ❌         |    ✅    |   ✅   |
+| **Gestion des utilisateurs**   |        ❌         |    ❌    |   ✅   |
 
-### Bounded contexts
-- Analyse Musicale & Recommandation
-- Démographie et sociale
-- Interface et visualisation
 
 ## 🎵 Ubiquitous Language - Domaine "Musique & Données Sociales"
 ### Entités
@@ -83,9 +82,9 @@ A partir d'un pays et d'une musique sources, ainsi que d'un pays cible, l'utilis
 | **Âge 25-64**          | Pourcentage de la population âgée de 25 à 64 ans.            |
 | **Âge 65+**            | Pourcentage de la population âgée de plus de 65 ans.         |
 
+---
 
-## API REST
-
+# API REST
 ## Endpoints
 
 ### Authentification
@@ -150,12 +149,27 @@ Headers{
 ```
 
 ### Prérequis
+
 Les librairies nécessaires pour ce projet sont dans le fichier requirements.txt.
 
-Pour lancer le projet :
-> python manage.py runserver
-> python manage.py migrate
+- Pour lancer le projet :
+> python manage.py runserver \
+> python manage.py migrate \
 > python manage.py createsuperuser
 
-## Utilisateurs par défaut
-Liste des utilisateurs accessibles:
+---
+
+# Front
+### Prérequis
+Lancer les commandes suivantes afin de lancer le projet:
+
+> npm install \
+> npm run dev
+
+# Utilisateurs par défaut
+Liste des utilisateurs:
+| Username             | Mot de passe     | Rôles            |
+| -------------------- | ---------------- | ---------------- |
+| **admin**            | admin            | admin            |
+| **analyst**          | analyst          | analyst          |
+| **playlist_creator** | playlist_creator | playlist_creator |
