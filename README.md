@@ -184,3 +184,9 @@ Liste des utilisateurs:
 | **admin**            | admin            | admin            |
 | **analyst**          | analyst          | analyst          |
 | **playlist_creator** | playlist_creator | playlist_creator |
+
+# Test
+Nous avons réalisés des tests pour l'authentification sur notre API.
+Pour lancer le test : 
+> cd ddd_back \
+> python manage.py test apps/api
