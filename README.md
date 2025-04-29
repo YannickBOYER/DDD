@@ -2,9 +2,11 @@
 
 ## Présentation globale
 
-Musique
-fff
-fff
+| Catégorie   | Type de donnée |
+|-------------|----------------|
+| **Musique** | Propriétés des musiques (Dansabilité, tempo...) |
+| **Utilisation des réseaux** | Part de la population utilisant les réseaux sociaux par pays |
+| **Démographie** | Répartition d'âge par pays |
 
 ## 3 Niveaux d'utilisateurs
 1. Rôle Administrateur \
@@ -81,10 +83,71 @@ A partir d'un pays et d'une musique sources, ainsi que d'un pays cible, l'utilis
 | **Âge 25-64**          | Pourcentage de la population âgée de 25 à 64 ans.            |
 | **Âge 65+**            | Pourcentage de la population âgée de plus de 65 ans.         |
 
-## Endpoints
-
 
 ## API REST
+
+## Endpoints
+
+### Authentification
+```bash
+http://localhost:8000/api/auth/login/ # POST 
+{
+  "username": "analyst",
+  "password": "analyst"
+}
+```
+```bash
+http://localhost:8000/api/auth/logout/ # DELETE 
+
+Headers{
+  'Authorization': 'Token {token}'
+}
+```
+```bash
+http://localhost:8000/api/auth/groups/ # GET 
+Headers{
+  'Authorization': 'Token {token}'
+}
+```
+### Pays
+```bash
+http://localhost:8000/countries/ # GET 
+Headers{
+  'Authorization': 'Token {token}'
+}
+```
+```bash
+http://localhost:8000/countries/names # GET 
+Headers{
+  'Authorization': 'Token {token}'
+}
+```
+```bash
+http://localhost:8000/countries/{name}/songs # GET 
+Headers{
+  'Authorization': 'Token {token}'
+}
+```
+### Sons
+```bash
+http://localhost:8000/api/songs/generate-playlist/ # POST 
+Headers{
+  'Authorization': 'Token {token}'
+}
+```
+### Utilisateurs
+```bash
+http://localhost:8000/api/users/ # GET 
+Headers{
+  'Authorization': 'Token {token}'
+}
+```
+```bash
+http://localhost:8000/api/users/{id} # DELETE 
+Headers{
+  'Authorization': 'Token {token}'
+}
+```
 
 ### Prérequis
 Les librairies nécessaires pour ce projet sont dans le fichier requirements.txt.
