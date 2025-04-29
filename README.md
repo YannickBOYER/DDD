@@ -1,6 +1,5 @@
-# Domain-Driven Design
-
-## Présentation globale
+# Présentation globale
+L'application met en lien plusieurs domaines / catégories de données:
 
 | Catégorie                   | Type de donnée                                               |
 | --------------------------- | ------------------------------------------------------------ |
@@ -8,10 +7,18 @@
 | **Utilisation des réseaux** | Part de la population utilisant les réseaux sociaux par pays |
 | **Démographie**             | Répartition d'âge par pays                                   |
 
+---
+
+# DDD architecture
+
 ## Bounded contexts
-- Création de playlists
-- Analyse des données par pays
-- Gestion des utilisateurs
+
+| Contexte (Bounded Context)       | Responsabilité                                                                             | Entités principales |
+| :------------------------------- | :----------------------------------------------------------------------------------------- | :------------------ |
+| **Création de playlists**        | Génération de playlists personnalisées selon similitude musicale et données démographiques | `Song`              |
+| **Analyse des données par pays** | Analyse des caractéristiques musicales et démographiques par pays                          | `CountryStats`      |
+| **Gestion des utilisateurs**     | Authentification, gestion des rôles et permissions, suppression d'utilisateurs             | `User`, `Group`     |
+
 
 ## Rôles
 
@@ -31,8 +38,6 @@
 - **CountryStats (StatistiquesPays)** :  
   Représente un ensemble agrégé de caractéristiques musicales moyennes et de données démographiques pour un pays donné.
 
----
-
 ### Objets Métiers et Concepts Clés
 
 | Terme métier               | Définition                                                                       |
@@ -47,8 +52,6 @@
 | **Durée (ms)**             | Durée de la chanson en millisecondes.                                            |
 | **Nom de l'album**         | Titre de l'album contenant la chanson.                                           |
 | **Date de sortie d'album** | Date officielle de sortie de l'album. (YYYY-MM-DD)                               |
-
----
 
 ### Caractéristiques Audio d’une Chanson
 
@@ -66,8 +69,6 @@
 | **Valence**          | Positivité/joie véhiculée par la chanson (0.0 à 1.0).                          |
 | **Tempo**            | Vitesse du morceau (en BPM).                                                   |
 | **Time Signature**   | Nombre de temps par mesure musicale.                                           |
-
----
 
 ### Caractéristiques Sociales et Démographiques d'un Pays
 
@@ -148,9 +149,10 @@ Headers{
 }
 ```
 
-### Prérequis
+### Lancer le projet backend
 
 Les librairies nécessaires pour ce projet sont dans le fichier requirements.txt.
+> pip install -r requirements.txt
 
 - Pour lancer le projet :
 > python manage.py runserver \
@@ -170,12 +172,14 @@ Par exemple, vous pouvez lancer les commandes suivantes:
 
 ---
 
-# Front
-### Prérequis
+# Frontend
+### Lancer le projet frontend
 Lancer les commandes suivantes afin de lancer le projet:
 
 > npm install \
 > npm run dev
+
+---
 
 # Utilisateurs par défaut
 Liste des utilisateurs:
@@ -185,8 +189,10 @@ Liste des utilisateurs:
 | **analyst**          | analyst          | analyst          |
 | **playlist_creator** | playlist_creator | playlist_creator |
 
+---
+
 # Test
-Nous avons réalisés des tests pour l'authentification sur notre API.
-Pour lancer le test : 
+Nous avons réalisé des tests pour l'authentification sur notre API.
+Pour lancer les tests : 
 > cd ddd_back \
 > python manage.py test apps/api
