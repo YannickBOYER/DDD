@@ -157,6 +157,17 @@ Les librairies nécessaires pour ce projet sont dans le fichier requirements.txt
 > python manage.py migrate \
 > python manage.py createsuperuser
 
+### Base de données
+
+Une base de données SQLite est déjà remplie.
+Si vous avez besoin de remplir à nouveau la base de données, vous pouvez utiliser les commandes se trouvant dans le dossier:
+- ddd_back/apps/api/management/commands
+
+Par exemple, vous pouvez lancer les commandes suivantes:
+> python ddd_back\manage.py import_country_stats data\merged_data.csv \
+> python ddd_back\manage.py import_users \
+> python ddd_back\manage.py import_songs data\spotify_songs.csv
+
 ---
 
 # Front
