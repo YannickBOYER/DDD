@@ -34,8 +34,8 @@ const resultPlaylist = ref<Song[] | null>(null);
 
 onMounted(async () => {
   const groups = await getUserGroups() as string[];
-  let isAdmin = groups.includes('ddd_admin');
-  let isPlaylistCreator = groups.includes('ddd_playlist_creator');
+  let isAdmin = groups.includes('admin');
+  let isPlaylistCreator = groups.includes('playlist_creator');
   if (!token) {
     router.push('/login');
   }

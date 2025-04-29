@@ -14,7 +14,8 @@ class CountryRestController(ViewSet):
         self.countryRepository = CountryRepository()
 
     def get_names(self, request):
-        authorized_groups = ['ddd_admin', 'ddd_playlist_creator', 'ddd_analyst']
+        authorized_groups = ['admin', 'playlist_creator', 'analyst']
+
         groups = request.user.groups.values_list('name', flat=True)
 
         if not any(group in authorized_groups for group in groups):
@@ -24,7 +25,7 @@ class CountryRestController(ViewSet):
         return Response({"countries": countries}, status=status.HTTP_200_OK)
     
     def get(self, request):
-        authorized_groups = ['ddd_admin', 'ddd_analyst']
+        authorized_groups = ['admin', 'analyst']
         groups = request.user.groups.values_list('name', flat=True)
 
         if not any(group in authorized_groups for group in groups):
@@ -35,7 +36,7 @@ class CountryRestController(ViewSet):
 
     
     def get_songs(self, request, country):
-        authorized_groups = ['ddd_admin', 'ddd_playlist_creator', 'ddd_analyst']
+        authorized_groups = ['admin', 'playlist_creator', 'analyst']
         groups = request.user.groups.values_list('name', flat=True)
 
         if not any(group in authorized_groups for group in groups):

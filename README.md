@@ -1,35 +1,98 @@
 # Domain-Driven Design
 
-## Définition des besoins
+## Présentation globale
 
-### 3 Niveaux d'utilisateurs
+Musique
+fff
+fff
+
+## 3 Niveaux d'utilisateurs
 1. Rôle Administrateur \
-Vu globale sur les différents écrans de l'application.
+Vue globale sur les différents écrans de l'application.
 
 2. Rôle Analyste \
-Comprendre les corélation, visualiser les graphiques
+L'analyste aura accès à des données musicales pour chaque pays.
 
 3. Créateur de playlist \
-A partir d'une musique source et d'un pays cible, proposer une liste de musique similaire au créateur de playlist afin de s'implanter dans un pays en fonction des données musicale et démographique.
+A partir d'un pays et d'une musique sources, ainsi que d'un pays cible, l'utilisateur se verra proposer une liste de musiques similaires  afin de trouver une musique adaptée à un pays en fonction des données musicales et démographiques.
 
-### Bounded context
+### Bounded contexts
 - Analyse Musicale & Recommandation
 - Démographie et sociale
 - Interface et visualisation
 
-### Ubiquitous Language
-Langage commun identifiant les termes métiers de l'application.
-> `is_explicit` : Présence de contenu explicite d'une musique (langage vulgaire, violent, sexuel ou discriminatoire). \
-> `danceability, energy, loudness, mode...` : Ensemble de termes relatant des données propre à une musique tels que le niveau d'énergie, le tempo, le mode harmonique, la présence de parole... \
-> `social_media_pct` : Pourcentage de la population d'un pays active sur les réseaux sociaux.
+## 🎵 Ubiquitous Language - Domaine "Musique & Données Sociales"
+### Entités
+
+- **Song (Chanson)** :  
+  Représente une chanson disponible sur Spotify, enrichie d'attributs audio, de données d'album et de popularité, spécifique à un pays donné.
+
+- **CountryStats (StatistiquesPays)** :  
+  Représente un ensemble agrégé de caractéristiques musicales moyennes et de données démographiques pour un pays donné.
+
+---
+
+### Objets Métiers et Concepts Clés
+
+| Terme métier               | Définition                                                                       |
+| -------------------------- | -------------------------------------------------------------------------------- |
+| **Spotify ID**             | Identifiant unique d'une chanson sur Spotify.                                    |
+| **Nom complet du pays**    | Dénomination complète du pays lié à la chanson (ex: "United States of America"). |
+| **Code du pays**           | Code ou abréviation simplifiée du pays en 2 caractères (ex: "US").               |
+| **Nom de la chanson**      | Titre officiel de la chanson.                                                    |
+| **Artistes**               | Liste des artistes associés à la chanson (séparés par une virgule).              |
+| **Popularité**             | Score de popularité de la chanson sur Spotify (entre 0 et 100).                  |
+| **Contenu explicite**      | Indicateur si la chanson contient du contenu explicite (`true` ou `false`).      |
+| **Durée (ms)**             | Durée de la chanson en millisecondes.                                            |
+| **Nom de l'album**         | Titre de l'album contenant la chanson.                                           |
+| **Date de sortie d'album** | Date officielle de sortie de l'album. (YYYY-MM-DD)                               |
+
+---
+
+### Caractéristiques Audio d’une Chanson
+
+| Attribut audio       | Signification                                                                  |
+| -------------------- | ------------------------------------------------------------------------------ |
+| **Danceability**     | Aptitude d'une chanson à faire danser (0.0 à 1.0).                             |
+| **Energy**           | Niveau d'énergie globale de la chanson (0.0 à 1.0).                            |
+| **Key**              | Tonalité musicale principale (notation numérique standardisée de 0 à 11).      |
+| **Loudness**         | Volume moyen de la chanson (en dB). (Négatif ou positif)                       |
+| **Mode**             | Mode musical : majeur (1) ou mineur (0).                                       |
+| **Speechiness**      | Proportion de paroles parlées dans la chanson (0.0 à 1.0).                     |
+| **Acousticness**     | Probabilité que la chanson soit acoustique (0.0 à 1.0).                        |
+| **Instrumentalness** | Probabilité que la chanson soit instrumentale (0.0 à 1.0).                     |
+| **Liveness**         | Probabilité que la chanson soit enregistrée en live / avec public (0.0 à 1.0). |
+| **Valence**          | Positivité/joie véhiculée par la chanson (0.0 à 1.0).                          |
+| **Tempo**            | Vitesse du morceau (en BPM).                                                   |
+| **Time Signature**   | Nombre de temps par mesure musicale.                                           |
+
+---
+
+### Caractéristiques Sociales et Démographiques d'un Pays
+
+| Attribut               | Définition                                                   |
+| ---------------------- | ------------------------------------------------------------ |
+| **Social Media Users** | Nombre total d'utilisateurs de réseaux sociaux dans le pays. |
+| **Social Media %**     | Pourcentage de la population utilisant les réseaux sociaux.  |
+| **Total Population**   | Population totale du pays.                                   |
+| **Âge 0-4**            | Pourcentage de la population âgée de 0 à 4 ans.              |
+| **Âge 5-14**           | Pourcentage de la population âgée de 5 à 14 ans.             |
+| **Âge 15-24**          | Pourcentage de la population âgée de 15 à 24 ans.            |
+| **Âge 25-64**          | Pourcentage de la population âgée de 25 à 64 ans.            |
+| **Âge 65+**            | Pourcentage de la population âgée de plus de 65 ans.         |
+
+## Endpoints
+
 
 ## API REST
 
 ### Prérequis
-pip install django-cors-headers
+Les librairies nécessaires pour ce projet sont dans le fichier requirements.txt.
 
 Pour lancer le projet :
 > python manage.py runserver
-
 > python manage.py migrate
 > python manage.py createsuperuser
+
+## Utilisateurs par défaut
+Liste des utilisateurs accessibles:

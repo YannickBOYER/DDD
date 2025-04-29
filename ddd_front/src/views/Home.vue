@@ -18,18 +18,22 @@ onMounted(async () => {
     router.push('/login');
   } else {
     const groups = await getUserGroups() as string[];
-    isAdmin.value = groups.includes('ddd_admin');
-    isAnalyst.value = groups.includes('ddd_analyst');
-    isPlaylistCreator.value = groups.includes('ddd_playlist_creator');
+    isAdmin.value = groups.includes('admin');
+    isAnalyst.value = groups.includes('analyst');
+    isPlaylistCreator.value = groups.includes('playlist_creator');
   }
 });
 
 function handleAnalyst(){
-  router.push('/analys');
+  router.push('/analyst');
 }
 
 function handlePlaylistCreator(){
-  router.push('/playlist-generation');
+  router.push('/playlist-creation');
+}
+
+function handleAdminUsers(){
+  router.push('/admin-users');
 }
 </script>
 
@@ -45,6 +49,10 @@ function handlePlaylistCreator(){
             <div v-if="isAdmin || isPlaylistCreator" class="tile" @click="handlePlaylistCreator">
                 <h2>Playlist maker</h2>
                 <p>Créateur de playlist dans un pays cible</p>
+            </div>
+            <div v-if="isAdmin" class="tile" @click="handleAdminUsers">
+                <h2>User Admin</h2>
+                <p>Gestion des utilisateurs</p>
             </div>
         </div>
     </div>

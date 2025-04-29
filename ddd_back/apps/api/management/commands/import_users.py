@@ -7,9 +7,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Créer les groupes
-        admin_group, created = Group.objects.get_or_create(name='ddd_admin')
-        analyst_group, created = Group.objects.get_or_create(name='ddd_analyst')
-        playlist_creator_group, created = Group.objects.get_or_create(name='ddd_playlist_creator')
+        admin_group, created = Group.objects.get_or_create(name='admin')
+        analyst_group, created = Group.objects.get_or_create(name='analyst')
+        playlist_creator_group, created = Group.objects.get_or_create(name='playlist_creator')
 
         # Créer les permissions
         content_type = ContentType.objects.get_for_model(User)
@@ -17,7 +17,7 @@ class Command(BaseCommand):
             codename='can_manage_all', name="Peut avoir un aperçu de toute l'application", content_type=content_type
         )
         perm_analyst, created = Permission.objects.get_or_create(
-            codename='can_analys', name="Peut voir les rapports", content_type=content_type
+            codename='can_analyst', name="Peut voir les rapports", content_type=content_type
         )
         perm_playlist_creator, created = Permission.objects.get_or_create(
             codename='can_create_playlists', name="Peut créer des playlists", content_type=content_type
