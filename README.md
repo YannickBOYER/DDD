@@ -49,7 +49,7 @@ L'application met en lien plusieurs domaines / catégories de données:
 | **Artistes**               | Liste des artistes associés à la chanson (séparés par une virgule).              |
 | **Popularité**             | Score de popularité de la chanson sur Spotify (entre 0 et 100).                  |
 | **Contenu explicite**      | Indicateur si la chanson contient du contenu explicite (`true` ou `false`).      |
-| **Durée (ms)**             | Durée de la chanson en millisecondes.                                            |
+| **Durée**                  | Durée de la chanson en millisecondes.                                            |
 | **Nom de l'album**         | Titre de l'album contenant la chanson.                                           |
 | **Date de sortie d'album** | Date officielle de sortie de l'album. (YYYY-MM-DD)                               |
 
